@@ -1,0 +1,17 @@
+types:
+  - string
+  - int
+  - float
+  - bool
+
+id:
+  - increment
+  - uuid
+
+attrs:
+  - type
+  - unique
+  - required
+  - default
+  - ref
+  - enum

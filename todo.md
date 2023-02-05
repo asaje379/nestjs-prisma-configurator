@@ -1,0 +1,21 @@
+- Handle database config support multiple envs (dev, prod)
+- Install dependencies
+- Generate main.ts file
+- Generate package.json scripts for prisma migrations (dev and prod)
+- Handle foreign id in typings 
+- Handle include and search from .yml file 
+- Handle data validation for models form .yml file
+- Handle server port from .yml file
+- Handle swagger config from .yml file
+- Add some functionnalities 
+    - handle include and search fields
+    - realtime on write operations with SSE
+    - export data to xlxs with filter  
+    - handle file upload 
+    - handle jwt authentication with first user seeding
+    - handle roles and permissions 
+    - handle actions logging
+    - adapt repository to mutliple id type
+
+- update nestjs-prisma-pagination 
+    - search number full-text

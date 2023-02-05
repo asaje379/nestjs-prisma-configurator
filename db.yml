@@ -1,0 +1,37 @@
+enums:
+
+models:
+  prestationType:
+    id:
+      type: int
+      id: increment
+    code:
+      type: string
+    label:
+      type: string
+
+  prestation:
+    id:
+      type: int
+      id: increment
+    code:
+      type: string
+    label:
+      type: string
+    reference:
+      type: string
+      required: false
+    service:
+      type: string
+    standardPrice:
+      type: float
+      default: 0.0
+    personalPrice:
+      type: float
+      default: 0.0
+    mutualPrice:
+      type: float
+      default: 0.0
+    prestationType:
+      type: ref
+      model: PrestationType
