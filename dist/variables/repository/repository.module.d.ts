@@ -1,1 +1,0 @@
-export declare const repositoryModule = "\nimport { Module } from '@nestjs/common';\nimport { PrismaModule } from '../prisma/prisma.module';\n\n@Module({\n  controllers: [RepositoryController],\n  providers: [RepositoryService, PrismaModule],\n  imports: [],\n})\nexport class RepositoryModule {}";
