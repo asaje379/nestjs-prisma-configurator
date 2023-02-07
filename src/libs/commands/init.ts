@@ -10,6 +10,8 @@ import { Installer } from '../installer';
 export interface InitArgs {
   models: Record<string, Record<string, Model>>;
   enums: Record<string, string[]>;
+  database: Record<string, Record<string, string | number>>;
+  env: Record<string, Record<string, string | number>>;
   target?: string;
 }
 

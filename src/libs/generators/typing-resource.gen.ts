@@ -2,7 +2,8 @@ import { Attrs, Model, Types } from '../../interfaces';
 import { JsTypesMapping, lowerUpperVarName } from '../../variables';
 import { Generator } from '.';
 import { writeFileSync } from 'fs';
-import { capitalize, formatTS, kebabToCamel } from '../../utils';
+import { capitalize, kebabToCamel } from '../../utils';
+import { Format } from '../formatter';
 
 export interface TypingResGeneratorOptions {
   name: string;
@@ -25,7 +26,7 @@ export class TypingResGenerator extends Generator {
       'typings',
     );
     console.log(path);
-    writeFileSync(path, formatTS(this.generateTypingRes()), 'utf-8');
+    writeFileSync(path, Format.ts(this.generateTypingRes()), 'utf-8');
   }
 
   generateTypingRes() {

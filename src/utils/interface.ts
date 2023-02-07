@@ -3,7 +3,8 @@ import { writeFileSync } from 'fs';
 import { Types } from '../interfaces/index';
 import { Model } from '../interfaces';
 import { JsTypesMapping } from '../variables';
-import { camelToKebab, kebabToCamel, capitalize, formatTS } from '.';
+import { camelToKebab, kebabToCamel, capitalize } from '.';
+import { Format } from '../libs/formatter';
 
 export function generateInterface(name: string, value: Record<string, Model>) {
   const lines = [`export interface ${name} {`];
@@ -53,7 +54,9 @@ export function generateInterfaces(
       `${Globals.CLIENT_TYPES_FOLDER_NAME}/interfaces/${camelToKebab(
         name,
       ).toLowerCase()}.ts`,
-      formatTS(generateInterface(capitalize(kebabToCamel(name)), models[name])),
+      Format.ts(
+        generateInterface(capitalize(kebabToCamel(name)), models[name]),
+      ),
       'utf-8',
     );
   }

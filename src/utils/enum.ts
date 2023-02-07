@@ -1,6 +1,7 @@
+import { Format } from './../libs/formatter/index';
 import { Globals } from '../variables/globals';
 import { writeFileSync } from 'fs';
-import { camelToKebab, capitalize, formatTS, kebabToCamel } from '.';
+import { camelToKebab, capitalize, kebabToCamel } from '.';
 
 export function generateEnum(name: string, values: string[]) {
   const lines = [`export enum ${capitalize(kebabToCamel(name))} {`];
@@ -17,7 +18,7 @@ export function generateEnums(enums: Record<string, string[]>) {
       `${Globals.CLIENT_TYPES_FOLDER_NAME}/enums/${camelToKebab(
         name,
       ).toLowerCase()}.ts`,
-      formatTS(generateEnum(capitalize(kebabToCamel(name)), enums[name])),
+      Format.ts(generateEnum(capitalize(kebabToCamel(name)), enums[name])),
       'utf-8',
     );
   }

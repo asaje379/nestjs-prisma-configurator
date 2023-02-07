@@ -1,0 +1,1 @@
+- generate resource for target

@@ -1,9 +1,11 @@
+import { EnvInitCommand } from './env-init';
+import { DatabaseInitCommand } from './db-init';
 import { ClientTypingsCommand } from './client-typings';
 import { GeneratePrismaCommand } from './generate-prisma';
 import { InitCommand, InitArgs } from './init';
 
 export interface BaseCommand {
-  execute(args?: any): void;
+  execute(args: InitArgs): void;
 }
 
 export const CommanderList: Record<string, any> = {
@@ -17,6 +19,10 @@ export const CommanderList: Record<string, any> = {
 
   'gen:client-typings': (args: InitArgs) =>
     new ClientTypingsCommand().execute(args),
+
+  'gen:db': (args: InitArgs) => new DatabaseInitCommand().execute(args),
+
+  'gen:env': (args: InitArgs) => new EnvInitCommand().execute(args),
 };
 
 export class Commander {

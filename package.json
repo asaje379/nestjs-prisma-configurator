@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "tsc && esbuild --bundle src/main.ts --outdir=dist --minify --platform=node --packages=external",
-    "dev": "ts-node-dev --respawn --transpile-only src/main.ts db.yml"
+    "dev": "ts-node-dev --respawn --transpile-only src/main.ts db.yml test"
   },
   "dependencies": {
     "@nestjs/cli": "^9.1.8",

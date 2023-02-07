@@ -2,7 +2,7 @@ import { writeFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import { Generator, ModuleFileType } from '.';
-import { formatTS } from '../../utils';
+import { Format } from '../formatter';
 
 export interface NestResourceGeneratorOptions {
   path: string;
@@ -41,6 +41,6 @@ export class NestResourceGenerator extends Generator {
     if (!existsSync(path)) {
       execSync(`npx nest g ${type} ${filename} --no-spec`);
     }
-    writeFileSync(path, formatTS(data), 'utf-8');
+    writeFileSync(path, Format.ts(data), 'utf-8');
   }
 }
