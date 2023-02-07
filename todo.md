@@ -1,10 +1,6 @@
 - Handle foreign id in typings
-
 - Handle include and search from .yml file
 - Handle data validation for models form .yml file
-- Generate main.ts file
-- Handle server port from .yml file
-- Handle swagger config from .yml file
 - Add some functionnalities
 
   - handle include and search fields
