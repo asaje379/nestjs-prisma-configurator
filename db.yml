@@ -1,7 +1,43 @@
+env:
+  dev:
+    key: 'SDFGHJKLERTYU456789HJK'
+  default:
+    key: 'HOUUUUAAAAH'
+
+database:
+  dev:
+    user: postgres
+    pass: postgres
+    port: 5432
+    name: todo
+    host: localhost
+
+  default:
+    user: salem
+    pass: p455w0rd
+    port: 5432
+    name: todo
+    host: 192.188.10.63
+
+server:
+  port: 4300
+  prefix: 'api'
+  doc:
+    title: 'TODO API'
+    description: 'The todo API description'
+    version: '1.0'
+    path:
+      swagger: 'docs'
+      redocs: 'redocs'
+    auth:
+      user: 'admin'
+      pass: 'admin'
+
 enums:
-  todo-status: CREATED
-    PENDING
-    COMPLETED
+  todo-status:
+    - CREATED
+    - PENDING
+    - COMPLETED
 
 models:
   prestationType:
@@ -38,24 +74,3 @@ models:
     prestationType:
       type: ref
       model: PrestationType
-
-env:
-  dev:
-    key: 'SDFGHJKLERTYU456789HJK'
-  default:
-    key: 'HOUUUUAAAAH'
-
-database:
-  dev:
-    user: postgres
-    pass: postgres
-    port: 5432
-    name: todo
-    host: localhost
-
-  default:
-    user: salem
-    pass: p455w0rd
-    port: 5432
-    name: todo
-    host: 192.188.10.63

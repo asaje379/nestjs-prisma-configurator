@@ -1,6 +1,5 @@
-
-- Generate package.json scripts for prisma migrations (dev and prod)
 - Handle foreign id in typings
+
 - Handle include and search from .yml file
 - Handle data validation for models form .yml file
 - Generate main.ts file

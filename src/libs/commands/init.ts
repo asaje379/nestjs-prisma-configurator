@@ -1,3 +1,4 @@
+import { MainDotTsConfig } from './../generators/main-ts.gen';
 import { GenericResGenerator } from './../generators/generic-resource.gen';
 import { RepositoryResGenerator } from './../generators/repository-resource.gen';
 import { PrismaResGenerator } from './../generators/prisma-resource.gen';
@@ -12,6 +13,7 @@ export interface InitArgs {
   enums: Record<string, string[]>;
   database: Record<string, Record<string, string | number>>;
   env: Record<string, Record<string, string | number>>;
+  server: MainDotTsConfig;
   target?: string;
 }
 
