@@ -1,10 +1,18 @@
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
 
+type PM = 'yarn' | 'npm' | 'pnpm';
+
 const pmCmd = {
   yarn: 'add',
   npm: 'install',
   pnpm: 'add',
+};
+
+const runCmd = {
+  yarn: 'yarn',
+  npm: 'npm run',
+  pnpm: 'pnpm run',
 };
 
 export class Installer {
@@ -20,6 +28,7 @@ export class Installer {
     '@nestjs/platform-socket.io',
     'socket.io',
   ];
+  static pm = 'npm';
 
   static devDependencies = ['@dotenv/cli'];
 
@@ -33,7 +42,15 @@ export class Installer {
 
   static installDependencies() {
     const pm = Installer.getPackageManager();
+    Installer.pm = pm;
     console.log('Detected package manager : ', pm);
-    execSync(`${pm} ${pmCmd[pm]} ${Installer.dependencies.join(' ')}`);
+    execSync(
+      `${pm} ${pmCmd[Installer.pm as PM]} ${Installer.dependencies.join(' ')}`,
+    );
+  }
+
+  static run(script: string) {
+    const $script = `${runCmd[Installer.pm as PM]} ${script}`;
+    execSync($script);
   }
 }

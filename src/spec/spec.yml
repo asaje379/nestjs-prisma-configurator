@@ -3,6 +3,7 @@ types:
   - int
   - float
   - bool
+  - enum
 
 id:
   - increment
@@ -15,3 +16,11 @@ attrs:
   - default
   - ref
   - enum
+
+validations:
+  - min
+  - max
+  - minLength
+  - maxLength
+  - isInt
+  - isDate

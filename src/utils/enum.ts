@@ -1,5 +1,5 @@
 import { Format } from './../libs/formatter/index';
-import { Globals } from '../variables/globals';
+import { Globals } from '../libs/variables/globals';
 import { writeFileSync } from 'fs';
 import { camelToKebab, capitalize, kebabToCamel } from '.';
 

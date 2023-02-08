@@ -1,5 +1,4 @@
-import { lowerUpperVarName } from "..";
-import { kebabToCamel } from "../../utils";
+import { kebabToCamel, lowerUpperVarName } from '../../../utils';
 
 export function generateService(name: string) {
   const { upperName, lowerName } = lowerUpperVarName(name);

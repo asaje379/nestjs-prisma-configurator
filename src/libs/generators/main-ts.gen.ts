@@ -38,7 +38,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: false }));
 
   ${
-    this.config.prefix ? 'app.setGlobalPrefix(' + this.config.prefix + ');' : ''
+    this.config.prefix
+      ? 'app.setGlobalPrefix(' + JSON.stringify(this.config.prefix) + ');'
+      : ''
   }
 
   const config = new DocumentBuilder()
@@ -46,22 +48,22 @@ async function bootstrap() {
     .setDescription(${
       JSON.stringify(this.config.doc?.description) ?? 'API Description'
     })
-    .setVersion(${this.config.doc?.version ?? '1.0'})
+    .setVersion(${JSON.stringify(this.config.doc?.version) ?? '1.0'})
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(${
-    this.config.doc?.path?.swagger ?? 'docs'
+    JSON.stringify(this.config.doc?.path?.swagger) ?? 'docs'
   }, app, document);
 
   const redocOptions = {
     auth: {
       enabled: true,
-      user: 'admin',
-      password: 'admin',
+      user: ${JSON.stringify(this.config.doc?.path?.swagger ?? 'admin')},
+      password: ${JSON.stringify(this.config.doc?.path?.redocs ?? 'admin')},
     },
   };
   await RedocModule.setup(${
-    this.config.doc?.path?.redocs ?? 'redocs'
+    JSON.stringify(this.config.doc?.path?.redocs) ?? 'redocs'
   }, app as any, document, redocOptions);
 
   await app.listen(${this.config.port});

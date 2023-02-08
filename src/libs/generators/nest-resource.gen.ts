@@ -4,19 +4,24 @@ import { existsSync } from 'fs';
 import { Generator, ModuleFileType } from '.';
 import { Format } from '../formatter';
 
+export interface NestResource {
+  name: string;
+  value: string;
+}
 export interface NestResourceGeneratorOptions {
   path: string;
-  data: Partial<Record<ModuleFileType, string>>;
+  data: Partial<Record<ModuleFileType, string | NestResource>>;
 }
 
 export interface NestFileGenOptions {
   filename: string;
   type: ModuleFileType;
-  data: string;
+  data: string | NestResource;
 }
 
 export class NestResourceGenerator extends Generator {
-  private $resources: Partial<Record<ModuleFileType, string>> = {};
+  private $resources: Partial<Record<ModuleFileType, string | NestResource>> =
+    {};
   constructor(options: NestResourceGeneratorOptions) {
     const { path, data } = options;
     super(path);
@@ -36,11 +41,19 @@ export class NestResourceGenerator extends Generator {
 
   generateNestResource(options: NestFileGenOptions) {
     const { filename, type, data } = options;
-    const path = this.filePath(filename, type);
+    const path =
+      typeof data === 'string'
+        ? this.filePath(filename, type)
+        : this.filePath(`${filename}/${filename}.${data.name}`, type);
 
     if (!existsSync(path)) {
       execSync(`npx nest g ${type} ${filename} --no-spec`);
     }
-    writeFileSync(path, Format.ts(data), 'utf-8');
+
+    writeFileSync(
+      path,
+      Format.ts(typeof data === 'string' ? data : data.value),
+      'utf-8',
+    );
   }
 }

@@ -1,10 +1,10 @@
 import { TypingResGenerator } from './typing-resource.gen';
 import { Model } from '../../interfaces';
-import { lowerUpperVarName } from '../../variables';
-import { generateController } from '../../variables/generic/generic.controller';
-import { generateModule } from '../../variables/generic/generic.module';
-import { generateService } from '../../variables/generic/generic.service';
+import { generateController } from '../variables/generic/generic.controller';
+import { generateModule } from '../variables/generic/generic.module';
+import { generateService } from '../variables/generic/generic.service';
 import { NestResourceGenerator } from './nest-resource.gen';
+import { lowerUpperVarName } from '../../utils';
 
 export interface GenericResGeneratorOptions {
   name: string;

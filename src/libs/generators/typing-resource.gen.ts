@@ -1,9 +1,10 @@
 import { Attrs, Model, Types } from '../../interfaces';
-import { JsTypesMapping, lowerUpperVarName } from '../../variables';
+import { JsTypesMapping } from '../variables';
 import { Generator } from '.';
 import { writeFileSync } from 'fs';
-import { capitalize, kebabToCamel } from '../../utils';
+import { capitalize, kebabToCamel, lowerUpperVarName } from '../../utils';
 import { Format } from '../formatter';
+import { setValidationDecorator } from '../../utils/interface';
 
 export interface TypingResGeneratorOptions {
   name: string;
@@ -39,7 +40,7 @@ export class TypingResGenerator extends Generator {
     ];
     const enums: string[] = [];
 
-    this.generateLines(this.$value, enums, lines);
+    const validationImportation = this.generateLines(this.$value, enums, lines);
 
     lines.push('}');
 
@@ -54,6 +55,13 @@ export class TypingResGenerator extends Generator {
     if (enums.length > 0)
       imports.push(`import {${enums.join(',')}} from '@prisma/client'`);
 
+    // Import class-validator
+    if (validationImportation.length > 0) {
+      imports.push(
+        `import {${validationImportation.join(',')}} from 'class-validator'`,
+      );
+    }
+
     // Merge all together
     return [imports.join('\n'), lines.join('\n')].join('\n \n');
   }
@@ -64,6 +72,7 @@ export class TypingResGenerator extends Generator {
     lines: string[],
     checkRequired: boolean = true,
   ) {
+    let validationsImportList: string[] = [];
     for (const attr in value) {
       const cols = [];
       const type = value[attr].type as Types;
@@ -73,20 +82,39 @@ export class TypingResGenerator extends Generator {
       if (type === Types.ENUM && !enums.includes(value[attr].enum))
         enums.push(value[attr].enum);
 
+      let decorators: string[] = [];
+      let importations: string[] = [];
+
+      if (value[attr].validations) {
+        console.log(value[attr].validations);
+        const info = setValidationDecorator(
+          value[attr].validations as Record<string, string | number | boolean>,
+        );
+        decorators = info.decorators;
+        importations = info.importations;
+        validationsImportList = [
+          ...validationsImportList,
+          ...info.importations,
+        ];
+      }
+
       if (attr === Attrs.ID) continue;
 
       const requiredCondition =
         Attrs.REQUIRED in value[attr] && !value[attr].required;
 
       cols.push(
-        `@ApiProperty${requiredCondition || !checkRequired ? 'Optional' : ''}(${
+        `${decorators.join('\n')}\n@ApiProperty${
+          requiredCondition || !checkRequired ? 'Optional' : ''
+        }(${
           type === Types.ENUM ? `{enum: ${value[attr].enum}}` : ''
-        }) ${attr}${requiredCondition || !checkRequired ? '?' : ''}: ${
+        }) \n${attr}${requiredCondition || !checkRequired ? '?' : ''}: ${
           type === Types.ENUM ? value[attr].enum : JsTypesMapping[type]
         }`,
       );
 
       lines.push(cols.join(' '));
     }
+    return [...new Set(validationsImportList)];
   }
 }

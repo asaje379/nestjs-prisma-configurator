@@ -1,5 +1,4 @@
-import { lowerUpperVarName } from '..';
-import { kebabToCamel } from '../../utils';
+import { kebabToCamel, lowerUpperVarName } from '../../../utils';
 
 export function generateController(name: string) {
   const { upperName, lowerName } = lowerUpperVarName(name);

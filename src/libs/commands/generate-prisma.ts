@@ -1,5 +1,5 @@
 import { InitArgs } from './init';
-import { Globals } from '../../variables/globals';
+import { Globals } from '../variables/globals';
 import { appendFileSync } from 'fs';
 import { EnumPrismaGenerator } from '../generators/enum.prisma.gen';
 import { ModelPrismaGenerator } from '../generators/model.prisma.gen';

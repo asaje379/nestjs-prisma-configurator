@@ -1,6 +1,5 @@
 - Handle foreign id in typings
 - Handle include and search from .yml file
-- Handle data validation for models form .yml file
 - Add some functionnalities
 
   - handle include and search fields

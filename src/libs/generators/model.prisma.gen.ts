@@ -1,4 +1,4 @@
-import { IdMapping, TypesMapping } from './../../variables/index';
+import { IdMapping, TypesMapping } from '../variables/index';
 import { Types, Attrs, Formats, Model } from './../../interfaces/index';
 import { Generator } from '.';
 import { capitalize, kebabToCamel } from '../../utils';

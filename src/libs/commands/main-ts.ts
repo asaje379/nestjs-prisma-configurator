@@ -7,6 +7,6 @@ import { InitArgs } from './init';
 export class MainDotTsInitCommand implements BaseCommand {
   execute(args: InitArgs): void {
     const content = new MainDotTsGenerator(args.server).generate();
-    writeFileSync('src/main2.ts', Format.ts(content), { encoding: 'utf-8' });
+    writeFileSync('src/main.ts', Format.ts(content), { encoding: 'utf-8' });
   }
 }

@@ -1,4 +1,4 @@
-import { lowerUpperVarName } from '..';
+import { lowerUpperVarName } from '../../../utils';
 
 export function generateModule(name: string) {
   const { upperName } = lowerUpperVarName(name);

@@ -1,5 +1,4 @@
 import { join } from 'path';
-import { format } from 'prettier';
 
 export function camelToKebab(value: string) {
   if (!value || value.length === 0) return value;
@@ -30,4 +29,10 @@ export function capitalize(value: string) {
 
 export function getPath(path: string) {
   return join(process.cwd(), path);
+}
+
+export function lowerUpperVarName(name: string) {
+  const upperName = capitalize(kebabToCamel(name));
+  const lowerName = camelToKebab(name).toLowerCase();
+  return { upperName, lowerName };
 }

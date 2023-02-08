@@ -40,37 +40,28 @@ enums:
     - COMPLETED
 
 models:
-  prestationType:
+  todo:
     id:
-      type: int
-      id: increment
-    code:
       type: string
+      id: uuid
     label:
       type: string
+      validations:
+        minLength: 3
+        maxLength: 10
+    duration:
+      type: int
+      validations:
+        min: 1
+        max: 10
+        isInt: true
+    status:
+      type: enum
+      enum: TodoStatus
 
-  prestation:
+  author:
     id:
-      type: int
-      id: increment
-    code:
       type: string
-    label:
+      id: uuid
+    name:
       type: string
-    reference:
-      type: string
-      required: false
-    service:
-      type: string
-    standardPrice:
-      type: float
-      default: 0.0
-    personalPrice:
-      type: float
-      default: 0.0
-    mutualPrice:
-      type: float
-      default: 0.0
-    prestationType:
-      type: ref
-      model: PrestationType

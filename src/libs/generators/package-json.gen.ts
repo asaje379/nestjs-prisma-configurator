@@ -1,4 +1,4 @@
-import { Globals } from './../../variables/globals';
+import { Globals } from '../variables/globals';
 import { readFileSync, writeFileSync } from 'fs';
 import { Generator } from '.';
 import { Format } from '../formatter';
