@@ -1,14 +1,17 @@
 import { lowerUpperVarName } from '../../../utils';
 
 export function generateModule(name: string) {
-  const { upperName } = lowerUpperVarName(name);
+  const { upperName, lowerName } = lowerUpperVarName(name);
   return `
+import { WebsocketModule } from './../websocket/websocket.module';
+import { CrudModule } from './../crud/crud.module';
+import { PrismaModule } from './../prisma/prisma.module';
 import { Module } from '@nestjs/common';
-import { PrismaModule } from '../prisma/prisma.module';
+import { ${upperName}CrudController } from './${lowerName}.crud.controller';
 
 @Module({
-  imports: [PrismaModule],
-  controllers: [${upperName}Controller],
+  imports: [PrismaModule, CrudModule, WebsocketModule],
+  controllers: [${upperName}Controller, ${upperName}CrudController],
   providers: [${upperName}Service],
 })
 export class ${upperName}Module {}

@@ -1,9 +1,8 @@
 import { Globals } from '../libs/variables/globals';
-import { writeFileSync } from 'fs';
 import { Types } from '../interfaces/index';
 import { Model } from '../interfaces';
 import { JsTypesMapping } from '../libs/variables';
-import { camelToKebab, kebabToCamel, capitalize } from '.';
+import { camelToKebab, kebabToCamel, capitalize, createFile } from '.';
 import { Format } from '../libs/formatter';
 
 export function generateInterface(name: string, value: Record<string, Model>) {
@@ -40,7 +39,11 @@ export function generateInterface(name: string, value: Record<string, Model>) {
   return [imports.join('\n'), lines.join('\n')].join('\n \n');
 }
 
-function getType(type: Types, value: Record<string, Model>, attr: string) {
+export function getType(
+  type: Types,
+  value: Record<string, Model>,
+  attr: string,
+) {
   if (type === Types.REF) return value[attr].model;
   if (type === Types.ENUM) return value[attr].enum;
   return JsTypesMapping[type];
@@ -50,14 +53,13 @@ export function generateInterfaces(
   models: Record<string, Record<string, Model>>,
 ) {
   for (const name in models) {
-    writeFileSync(
+    createFile(
       `${Globals.CLIENT_TYPES_FOLDER_NAME}/interfaces/${camelToKebab(
         name,
       ).toLowerCase()}.ts`,
       Format.ts(
         generateInterface(capitalize(kebabToCamel(name)), models[name]),
       ),
-      'utf-8',
     );
   }
 }
@@ -70,6 +72,30 @@ const validationsMapping: Record<string, (a: any) => string> = {
   isInt: () => '@IsInt()',
   isDate: () => '@IsDate()',
   isEmail: () => '@IsEmail()',
+  isString: () => '@IsString()',
+  contains: (value: string) => `@Contains(${value})`,
+  isEmpty: () => '@IsEmpty()',
+  isNotEmpty: () => '@IsNotEmpty()',
+  isDefined: () => '@IsDefined()',
+  isOptional: () => '@IsOptional()',
+  equals: () => '@Equals()',
+  notEquals: () => '@NotEquals()',
+  isIn: (values: any[]) => `@IsIn(${values})`,
+  isNotIn: (values: any[]) => `@IsNotIn(${values})`,
+  isBoolean: () => '@IsBoolean()',
+  isNumber: () => '@IsNumber()',
+  isArray: () => '@IsArray()',
+  isEnum: (entity: object) => `@IsEnum(${entity})`,
+  isPositive: () => '@IsPositive()',
+  isNegative: () => '@IsNegative()',
+  minDate: (date: string) => `@MinDate(${new Date(date)})`,
+  maxDate: (date: string) => `@MaxDate(${new Date(date)})`,
+  isBooleanString: () => '@IsBooleanString()',
+  isDateString: () => '@IsDateString()',
+  notContains: (value: string) => `@NotContains(${value})`,
+  isAplha: () => '@IsAplha()',
+  isAlphanumeric: () => '@IsAlphanumeric()',
+  isDecimal: () => '@IsDecimal()',
 };
 
 export function setValidationDecorator(

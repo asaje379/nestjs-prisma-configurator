@@ -47,17 +47,20 @@ models:
     label:
       type: string
       validations:
+        isString:
         minLength: 3
         maxLength: 10
     duration:
       type: int
       validations:
+        isInt:
         min: 1
         max: 10
-        isInt: true
     status:
       type: enum
       enum: TodoStatus
+      validations:
+        isEnum: TodoStatus
 
   author:
     id:

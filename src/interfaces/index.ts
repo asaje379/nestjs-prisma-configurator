@@ -21,6 +21,7 @@ export enum Types {
   BOOL = 'bool',
   REF = 'ref',
   ENUM = 'enum',
+  DATE = 'date',
 }
 
 export interface Model {

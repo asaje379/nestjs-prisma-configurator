@@ -1,29 +1,31 @@
 import { InitArgs } from './init';
 import { BaseCommand } from './index';
 import { EnvParser } from '../parser/env';
-import { existsSync, writeFileSync } from 'fs';
+import { existsSync } from 'fs';
+import { createFile } from '../../utils';
 
 export class EnvInitCommand implements BaseCommand {
   execute(args: InitArgs): void {
-    const envParser = new EnvParser();
-    const modes = Object.keys(args.env);
+    if (args.env) {
+      const envParser = new EnvParser();
+      const modes = Object.keys(args.env);
 
-    for (const mode of modes) {
-      const path = EnvParser.getPath(mode);
-      if (!existsSync(path)) {
-        writeFileSync(path, '', 'utf-8');
+      for (const mode of modes) {
+        const path = EnvParser.getPath(mode);
+        if (!existsSync(path)) {
+          createFile(path, '');
+        }
+
+        const currentData: Record<string, string> = envParser.parse({ path });
+
+        createFile(
+          path,
+          envParser.unparse({
+            ...currentData,
+            ...(args.env[mode] as Record<string, string | number>),
+          }),
+        );
       }
-
-      const currentData: Record<string, string> = envParser.parse({ path });
-
-      writeFileSync(
-        path,
-        envParser.unparse({
-          ...currentData,
-          ...(args.env[mode] as Record<string, string | number>),
-        }),
-        'utf-8',
-      );
     }
   }
 }

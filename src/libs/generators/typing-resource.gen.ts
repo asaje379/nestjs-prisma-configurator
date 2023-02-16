@@ -1,10 +1,12 @@
 import { Attrs, Model, Types } from '../../interfaces';
 import { JsTypesMapping } from '../variables';
 import { Generator } from '.';
-import { writeFileSync } from 'fs';
-import { capitalize, kebabToCamel, lowerUpperVarName } from '../../utils';
+import { capitalize, createDir, createFile, kebabToCamel } from '../../utils';
 import { Format } from '../formatter';
 import { setValidationDecorator } from '../../utils/interface';
+import { join } from 'path';
+import { generateEntity } from '../../utils/entity';
+import { generateSerializer } from '../../utils/serializers';
 
 export interface TypingResGeneratorOptions {
   name: string;
@@ -22,15 +24,32 @@ export class TypingResGenerator extends Generator {
   }
 
   generate() {
-    const path = this.filePath(
-      lowerUpperVarName(this.$name).lowerName,
-      'typings',
+    const dtoFolderPath = join(this.getSrcPath(), 'dto');
+    const entitiesFolderPath = join(this.getSrcPath(), 'entities');
+    const serializersFolderPath = join(this.getSrcPath(), 'serializers');
+
+    createDir(dtoFolderPath);
+    createDir(entitiesFolderPath);
+    createDir(serializersFolderPath);
+
+    const createPath = join(dtoFolderPath, `create-${this.$name}.dto.ts`);
+
+    createFile(createPath, Format.ts(this.generateCreateDto()));
+
+    const updatePath = join(dtoFolderPath, `update-${this.$name}.dto.ts`);
+    createFile(updatePath, Format.ts(this.generateUpdateDto()));
+
+    const entityPath = join(entitiesFolderPath, `${this.$name}.entity.ts`);
+    createFile(entityPath, Format.ts(generateEntity(this.$name, this.$value)));
+
+    const serializerPath = join(
+      serializersFolderPath,
+      `${this.$name}.serializer.ts`,
     );
-    console.log(path);
-    writeFileSync(path, Format.ts(this.generateTypingRes()), 'utf-8');
+    createFile(serializerPath, Format.ts(generateSerializer(this.$name)));
   }
 
-  generateTypingRes() {
+  generateCreateDto() {
     const cleanName = capitalize(kebabToCamel(this.$name));
 
     // Create Typing Generation
@@ -44,10 +63,35 @@ export class TypingResGenerator extends Generator {
 
     lines.push('}');
 
-    // Update Typing Generation
-    lines.push(`\nexport class Update${cleanName} {`);
+    // Import enums
+    if (enums.length > 0)
+      imports.push(`import {${enums.join(',')}} from '@prisma/client'`);
 
-    this.generateLines(this.$value, enums, lines, false);
+    // Import class-validator
+    if (validationImportation.length > 0) {
+      imports.push(
+        `import {${validationImportation.join(',')}} from 'class-validator'`,
+      );
+    }
+
+    // Merge all together
+    return [imports.join('\n'), lines.join('\n')].join('\n \n');
+  }
+
+  generateUpdateDto() {
+    const cleanName = capitalize(kebabToCamel(this.$name));
+
+    // Create Typing Generation
+    const lines = [`export class Update${cleanName} {`];
+    const imports = ["import { ApiPropertyOptional } from '@nestjs/swagger'"];
+    const enums: string[] = [];
+
+    const validationImportation = this.generateLines(
+      this.$value,
+      enums,
+      lines,
+      false,
+    );
 
     lines.push('}');
 
@@ -104,7 +148,7 @@ export class TypingResGenerator extends Generator {
         Attrs.REQUIRED in value[attr] && !value[attr].required;
 
       cols.push(
-        `${decorators.join('\n')}\n@ApiProperty${
+        `\n${decorators.join('\n')}\n@ApiProperty${
           requiredCondition || !checkRequired ? 'Optional' : ''
         }(${
           type === Types.ENUM ? `{enum: ${value[attr].enum}}` : ''

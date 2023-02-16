@@ -1,6 +1,9 @@
 import { TypingResGenerator } from './typing-resource.gen';
 import { Model } from '../../interfaces';
-import { generateController } from '../variables/generic/generic.controller';
+import {
+  generateController,
+  generateCrudController,
+} from '../variables/generic/generic.controller';
 import { generateModule } from '../variables/generic/generic.module';
 import { generateService } from '../variables/generic/generic.service';
 import { NestResourceGenerator } from './nest-resource.gen';
@@ -24,6 +27,7 @@ export class GenericResGenerator extends NestResourceGenerator {
         module: generateModule(name),
         service: generateService(name),
         controller: generateController(name),
+        'crud-controller': generateCrudController(name),
       },
     });
 

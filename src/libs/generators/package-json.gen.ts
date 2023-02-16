@@ -1,7 +1,8 @@
 import { Globals } from '../variables/globals';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { Generator } from '.';
 import { Format } from '../formatter';
+import { createFile } from '../../utils';
 
 export interface PackageDotJson {
   scripts: Record<string, string>;
@@ -16,7 +17,7 @@ export class PackageDotJsonGenerator extends Generator {
   }
 
   generate() {
-    writeFileSync(Globals.PACKAGE_DOT_JSON, Format.json(this.content), 'utf-8');
+    createFile(Globals.PACKAGE_DOT_JSON, Format.json(this.content));
   }
 
   static read() {

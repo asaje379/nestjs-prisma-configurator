@@ -4,6 +4,7 @@ types:
   - float
   - bool
   - enum
+  - date
 
 id:
   - increment
@@ -24,3 +25,28 @@ validations:
   - maxLength
   - isInt
   - isDate
+  - isEmail
+  - isString
+  - contains
+  - isEmpty
+  - isNotEmpty
+  - isDefined
+  - isOptional
+  - equals
+  - notEquals
+  - isIn
+  - isNotIn
+  - isBoolean
+  - isNumber
+  - isArray
+  - isEnum
+  - isPositive
+  - isNegative
+  - minDate
+  - maxDate
+  - isBooleanString
+  - isDateString
+  - notContains
+  - isAplha
+  - isAlphanumeric
+  - isDecimal

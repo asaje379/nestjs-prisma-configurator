@@ -1,3 +1,4 @@
+import { OpenApiCommand } from './openapi';
 import { EnvInitCommand } from './env-init';
 import { DatabaseInitCommand } from './db-init';
 import { ClientTypingsCommand } from './client-typings';
@@ -23,6 +24,8 @@ export const CommanderList: Record<string, any> = {
   'gen:db': (args: InitArgs) => new DatabaseInitCommand().execute(args),
 
   'gen:env': (args: InitArgs) => new EnvInitCommand().execute(args),
+
+  'gen:openapi': (args: string) => new OpenApiCommand().execute(args),
 };
 
 export class Commander {

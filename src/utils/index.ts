@@ -1,3 +1,4 @@
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 export function camelToKebab(value: string) {
@@ -35,4 +36,12 @@ export function lowerUpperVarName(name: string) {
   const upperName = capitalize(kebabToCamel(name));
   const lowerName = camelToKebab(name).toLowerCase();
   return { upperName, lowerName };
+}
+
+export function createDir(path: string) {
+  if (!existsSync(path)) mkdirSync(path);
+}
+
+export function createFile(path: string, content: string) {
+  writeFileSync(path, content, 'utf-8');
 }

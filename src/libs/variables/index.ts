@@ -1,4 +1,3 @@
-import { camelToKebab, capitalize, kebabToCamel } from '../../utils';
 import { Formats, Types } from '../../interfaces/index';
 export const TypesMapping = {
   [Types.INT]: 'Int',
@@ -7,6 +6,7 @@ export const TypesMapping = {
   [Types.FLOAT]: 'Float',
   [Types.REF]: undefined,
   [Types.ENUM]: undefined,
+  [Types.DATE]: 'Date',
 };
 
 export const JsTypesMapping = {
@@ -15,6 +15,7 @@ export const JsTypesMapping = {
   [Types.BOOL]: 'boolean',
   [Types.FLOAT]: 'number',
   [Types.ENUM]: undefined,
+  [Types.DATE]: 'Date',
 };
 
 export const IdMapping: Record<Formats, string> = {

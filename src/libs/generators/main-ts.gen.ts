@@ -14,6 +14,10 @@ export interface SwaggerDocConfig {
     swagger?: string;
     redocs?: string;
   };
+  auth?: {
+    user?: string;
+    pass?: string;
+  };
 }
 
 export class MainDotTsGenerator extends Generator {
@@ -36,6 +40,7 @@ import { RedocModule } from 'nestjs-redoc';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: false }));
+  app.enableCors();
 
   ${
     this.config.prefix
@@ -58,8 +63,8 @@ async function bootstrap() {
   const redocOptions = {
     auth: {
       enabled: true,
-      user: ${JSON.stringify(this.config.doc?.path?.swagger ?? 'admin')},
-      password: ${JSON.stringify(this.config.doc?.path?.redocs ?? 'admin')},
+      user: ${JSON.stringify(this.config.doc?.auth?.user ?? 'admin')},
+      password: ${JSON.stringify(this.config.doc?.auth?.pass ?? 'admin')},
     },
   };
   await RedocModule.setup(${

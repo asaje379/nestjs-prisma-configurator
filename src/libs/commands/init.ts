@@ -1,16 +1,19 @@
+import { OpenApiOptions } from './../generators/openapi.gen';
+import { WebsocketCommand } from './websocket';
+import { CrudResGenerator } from './../generators/crud-resource.gen';
 import { MainDotTsInitCommand } from './main-ts';
 import { EnvInitCommand } from './env-init';
 import { MainDotTsConfig } from './../generators/main-ts.gen';
 import { GenericResGenerator } from './../generators/generic-resource.gen';
-import { RepositoryResGenerator } from './../generators/repository-resource.gen';
 import { PrismaResGenerator } from './../generators/prisma-resource.gen';
-import { ClientTypingsGenerator } from './../generators/client-typings.gen';
 import { GeneratePrismaCommand } from './generate-prisma';
 import { Model } from './../../interfaces/index';
 import { BaseCommand } from '.';
 import { Installer } from '../installer';
 import { DatabaseInitCommand } from './db-init';
 import { MigrationScriptCommand } from './migration-script';
+import { HelpersCommand } from './helpers';
+import { BaseInitCommand } from './base-init';
 
 export interface InitArgs {
   models: Record<string, Record<string, Model>>;
@@ -19,6 +22,7 @@ export interface InitArgs {
   env: Record<string, Record<string, string | number>>;
   server: MainDotTsConfig;
   target?: string;
+  openapi?: string;
 }
 
 export class InitCommand implements BaseCommand {
@@ -47,15 +51,24 @@ export class InitCommand implements BaseCommand {
     console.log('Updating package.json file');
     new MigrationScriptCommand().execute();
 
-    // // Init client typings
-    // console.log('Client typings');
-    // new ClientTypingsGenerator(args.models, args.enums).generate();
-
+    // Generate prisma module
     console.log('Generating prisma module ...');
     new PrismaResGenerator().generate();
 
-    console.log('Generating repository module ...');
-    new RepositoryResGenerator().generate();
+    console.log('Generating crud module ...');
+    new CrudResGenerator().generate();
+
+    // Generate websocket module
+    console.log('Generating websocket module ...');
+    new WebsocketCommand().execute();
+
+    // Generate helpers
+    console.log('Generating helpers ...');
+    new HelpersCommand().execute();
+
+    // Generate base
+    console.log('Generating base files ...');
+    new BaseInitCommand().execute();
 
     for (const name in args.models) {
       console.log(`Generating ${name} module ...`);

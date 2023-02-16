@@ -1,4 +1,3 @@
-import { appendFileSync } from 'fs';
 import { Generator } from '.';
 
 export interface DatabaseConfig {

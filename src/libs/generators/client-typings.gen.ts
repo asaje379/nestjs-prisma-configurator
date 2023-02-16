@@ -3,6 +3,7 @@ import { existsSync, mkdirSync } from 'fs';
 import { Generator } from '.';
 import { generateEnums } from '../../utils/enum';
 import { generateInterfaces } from '../../utils/interface';
+import { createDir } from '../../utils';
 
 export class ClientTypingsGenerator extends Generator {
   models: Record<string, Record<string, Model>>;
@@ -19,17 +20,12 @@ export class ClientTypingsGenerator extends Generator {
 
   generate() {
     console.log('Generating client typings ...');
-    if (!existsSync('client-typings')) {
-      mkdirSync('client-typings');
-    }
 
-    if (!existsSync('client-typings/enums')) {
-      mkdirSync('client-typings/enums');
-    }
+    createDir('client-typings');
 
-    if (!existsSync('client-typings/interfaces')) {
-      mkdirSync('client-typings/interfaces');
-    }
+    createDir('client-typings/enums');
+
+    createDir('client-typings/interfaces');
 
     generateEnums(this.enums);
     generateInterfaces(this.models);

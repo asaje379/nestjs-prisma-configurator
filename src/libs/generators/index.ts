@@ -1,4 +1,13 @@
-export type ModuleFileType = 'module' | 'service' | 'controller' | 'typings';
+export type ModuleFileType =
+  | 'module'
+  | 'service'
+  | 'controller'
+  | 'crud-controller'
+  | 'typings'
+  | 'gateway'
+  | '/dto'
+  | '/entities'
+  | '/serializers';
 
 export abstract class Generator {
   protected $path: string = '';

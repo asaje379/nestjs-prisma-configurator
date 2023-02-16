@@ -6,20 +6,29 @@ export function generateService(name: string) {
     name.charAt(0).toLowerCase() + kebabToCamel(name).substring(1);
 
   return `
-import { Create${upperName}, Update${upperName} } from './${lowerName}.typings';
-import { PrismaService } from '../prisma/prisma.service';
-import { RepositoryService } from './../repository/repository.service';
+import { WebsocketGateway } from './../websocket/websocket.gateway';
+import { ${upperName}Serializer } from './serializers/${lowerName}.serializer';
+import { PrismaService } from './../prisma/prisma.service';
+import { Prisma } from '@prisma/client';
+import { Update${upperName} } from './dto/update-${lowerName}.dto';
+import { Create${upperName} } from './dto/create-${lowerName}.dto';
+import { CrudService } from './../crud/crud.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ${upperName}Service extends RepositoryService<
+export class ${upperName}Service extends CrudService<
   Create${upperName},
-  Update${upperName}
+  Update${upperName},
+  Prisma.${upperName}WhereInput
 > {
-  constructor(protected prisma: PrismaService) {
-    super(prisma);
+  constructor(
+    protected prisma: PrismaService,
+    protected socket: WebsocketGateway,
+  ) {
+    super(prisma, socket);
     this.model = '${modelName}';
-    this.includes = [];
+    this.defaultSerializer = ${upperName}Serializer;
   }
-}`;
+}
+`;
 }
