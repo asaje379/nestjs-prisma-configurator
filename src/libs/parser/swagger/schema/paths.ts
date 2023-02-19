@@ -125,7 +125,7 @@ static async ${data.name}(options: RequestOptions<${data.body}>) {
   generateApi(methods: ApiMethods, types: string[]) {
     return `
 import {${types.join(',')}} from './components'
-import axios, { AxiosError, AxiosInstance, CreateAxiosDefaults } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
 export type ApiRequestType = 'get' | 'post' | 'put' | 'delete' | 'patch';
 export type CustomAxiosInstance = {
@@ -166,7 +166,7 @@ export async function makeRequest<Req, Res>(
   }
 }
 
-export function init(config: CreateAxiosDefaults) {
+export function init(config: AxiosRequestConfig) {
   const api = axios.create(config);
 
   const setBearerToken = (token: string) => {
