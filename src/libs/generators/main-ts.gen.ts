@@ -26,7 +26,6 @@ export class MainDotTsGenerator extends Generator {
   constructor(config: MainDotTsConfig) {
     super();
     this.config = config;
-    console.log(config);
   }
 
   generate(): string {

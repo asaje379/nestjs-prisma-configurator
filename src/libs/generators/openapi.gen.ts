@@ -55,7 +55,6 @@ export class OpenapiGenerator extends Generator {
 
       const parser = new ApiPathsParser();
       const parsed = parser.parse(paths);
-      console.log('parsed', parsed);
       const fetchGenerated = parser.generateApi(JSON.parse(parsed), types);
       createFile(Globals.OPEN_API_API + '.ts', Format.ts(fetchGenerated));
     }

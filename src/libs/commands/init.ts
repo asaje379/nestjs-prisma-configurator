@@ -28,7 +28,6 @@ export interface InitArgs {
 export class InitCommand implements BaseCommand {
   execute(args: InitArgs): void {
     // Install dependencies
-    console.log('Installing dependencies...');
     Installer.installDependencies();
 
     // Init prisma

@@ -42,8 +42,6 @@ export class ApiPathsParser extends ApiParser<string> {
           return acc;
         }, {});
 
-        console.log(params, query);
-
         methods[$method][path] = {
           params,
           query,

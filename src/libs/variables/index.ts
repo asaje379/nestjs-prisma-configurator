@@ -16,6 +16,7 @@ export const JsTypesMapping = {
   [Types.FLOAT]: 'number',
   [Types.ENUM]: undefined,
   [Types.DATE]: 'Date',
+  [Types.REF]: undefined,
 };
 
 export const IdMapping: Record<Formats, string> = {

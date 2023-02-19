@@ -1,5 +1,6 @@
 import { capitalize } from '.';
 import { Model, Types } from '../interfaces';
+import { JsTypesMapping } from '../libs/variables';
 import { getType } from './interface';
 
 export function generateEntity(name: string, value: Record<string, Model>) {
@@ -16,6 +17,11 @@ export function generateEntity(name: string, value: Record<string, Model>) {
 
     if (type === Types.REF) {
       imports.push(value[attr].model);
+      lines.push(
+        `@ApiResponseProperty() ${attr}Id: ${
+          JsTypesMapping[value.id.type as Types]
+        }`,
+      );
     }
 
     lines.push(`@ApiResponseProperty() ${attr}: ${getType(type, value, attr)}`);

@@ -128,7 +128,6 @@ export class TypingResGenerator extends Generator {
       let importations: string[] = [];
 
       if (value[attr].validations) {
-        console.log(value[attr].validations);
         const info = setValidationDecorator(
           value[attr].validations as Record<string, string | number | boolean>,
         );
@@ -143,7 +142,11 @@ export class TypingResGenerator extends Generator {
       if (attr === Attrs.ID) continue;
 
       if (type === Types.REF) {
-        cols.push(`@ApiProperty() ${attr}Id : string`);
+        lines.push(
+          `\n@ApiProperty${
+            !checkRequired ? 'Optional' : ''
+          }() ${attr}Id : string`,
+        );
         continue;
       }
 

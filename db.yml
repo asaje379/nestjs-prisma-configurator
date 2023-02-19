@@ -61,6 +61,9 @@ models:
       enum: TodoStatus
       validations:
         isEnum: TodoStatus
+    author:
+      type: ref
+      model: Author
 
   author:
     id:
