@@ -1,7 +1,7 @@
 {
-  "name": "yml-to-prisma",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "@asaje/nesty",
+  "version": "0.0.1",
+  "main": "dist/main.js",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.13.0",
@@ -25,6 +25,11 @@
     "./dist"
   ],
   "bin": {
-    "yppg": "./dist/main.js"
-  }
+    "nesty": "./dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asaje379/nestjs-prisma-configurator.git"
+  },
+  "homepage": "https://github.com/asaje379/nestjs-prisma-configurator.git#readme.md"
 }

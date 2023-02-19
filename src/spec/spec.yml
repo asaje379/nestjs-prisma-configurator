@@ -3,6 +3,7 @@ types:
   - int
   - float
   - bool
+  - ref
   - enum
   - date
 
@@ -17,6 +18,9 @@ attrs:
   - default
   - ref
   - enum
+  - id
+  - model
+  - validations
 
 validations:
   - min

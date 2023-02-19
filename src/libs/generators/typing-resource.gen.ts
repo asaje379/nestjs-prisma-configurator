@@ -121,8 +121,6 @@ export class TypingResGenerator extends Generator {
       const cols = [];
       const type = value[attr].type as Types;
 
-      if (type === Types.REF) continue;
-
       if (type === Types.ENUM && !enums.includes(value[attr].enum))
         enums.push(value[attr].enum);
 
@@ -143,6 +141,11 @@ export class TypingResGenerator extends Generator {
       }
 
       if (attr === Attrs.ID) continue;
+
+      if (type === Types.REF) {
+        cols.push(`@ApiProperty() ${attr}Id : string`);
+        continue;
+      }
 
       const requiredCondition =
         Attrs.REQUIRED in value[attr] && !value[attr].required;

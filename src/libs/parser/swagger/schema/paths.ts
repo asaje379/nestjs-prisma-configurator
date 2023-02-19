@@ -42,6 +42,8 @@ export class ApiPathsParser extends ApiParser<string> {
           return acc;
         }, {});
 
+        console.log(params, query);
+
         methods[$method][path] = {
           params,
           query,
@@ -53,7 +55,7 @@ export class ApiPathsParser extends ApiParser<string> {
       }
     }
 
-    return JSON.stringify(methods);
+    return JSON.stringify(methods, null, 2);
   }
 
   getPayload(data: any) {
@@ -88,9 +90,20 @@ export class ApiPathsParser extends ApiParser<string> {
     data: ApiMethodsOptions,
   ) {
     const responseType = data.response ? Object.values(data.response)[0] : null;
+    let url_ = url;
+    if (data.params) {
+      const params = this.extractParams(url);
+      for (const param of params) {
+        url_ = url_.replace(`{${param}}`, `'+ options.params?.${param} +'`);
+      }
+    }
     return `
 static async ${data.name}(options: RequestOptions<${data.body}>) {
-  return await makeRequest<${data.body}, ${responseType}>(api, '${method}', '${url}', options);
+  return await makeRequest<${
+    data.body
+  }, ${responseType}>(api, '${method}',  '${url_}${
+      url_.endsWith(' ') ? '' : "'"
+    }, options);
 }`;
   }
 
@@ -117,6 +130,7 @@ export type CustomAxiosInstance = {
 };
 export type RequestOptions<T> = {
   params?: Record<string, string | number>;
+  query?: Record<string, string | number>;
   body?: T;
 };
 
@@ -163,5 +177,22 @@ export function init(config: CreateAxiosDefaults) {
   return { instance: api, setBearerToken, Fetch };
 }
 `;
+  }
+
+  extractParams(url: string) {
+    const keyStack = [];
+    for (let i = 0; i < url.length; i++) {
+      if (url[i] === '{') {
+        i++;
+        let key = '';
+        while (url[i] !== '}') {
+          key += url[i];
+          i++;
+        }
+        keyStack.push(key);
+        i++;
+      }
+    }
+    return keyStack;
   }
 }
