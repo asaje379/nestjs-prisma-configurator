@@ -1,4 +1,5 @@
 import { ApiParser } from '..';
+import { capitalize } from '../../../../utils';
 
 export type ApiMethodType = 'get' | 'post' | 'put' | 'patch' | 'delete';
 export interface ApiMethodsOptions {
@@ -42,13 +43,16 @@ export class ApiPathsParser extends ApiParser<string> {
           return acc;
         }, {});
 
+        let name = item.operationId;
+        name = capitalize((name as string).replace(/(crud|controller)/gim, ''));
+
         methods[$method][path] = {
           params,
           query,
           body:
             'requestBody' in item ? this.getPayload(item.requestBody) : null,
           response: this.getResponses(item),
-          name: item.operationId,
+          name,
         };
       }
     }

@@ -43,7 +43,8 @@ export class Installer {
   static installDependencies() {
     const pm = Installer.getPackageManager();
     Installer.pm = pm;
-    console.log('Package manager detected, let us use', pm);
+    console.log("Package manager detected, let's use", pm);
+    console.log('Installing dependencies...');
     execSync(
       `${pm} ${pmCmd[Installer.pm as PM]} ${Installer.dependencies.join(' ')}`,
     );
@@ -51,7 +52,6 @@ export class Installer {
 
   static run(script: string) {
     const $script = `${runCmd[Installer.pm as PM]} ${script}`;
-    console.log('Installing dependencies...');
     execSync($script);
   }
 }

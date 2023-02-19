@@ -35,6 +35,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { RedocModule } from 'nestjs-redoc';
+import { writeFileSync } from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -69,6 +70,8 @@ async function bootstrap() {
   await RedocModule.setup(${
     JSON.stringify(this.config.doc?.path?.redocs) ?? 'redocs'
   }, app as any, document, redocOptions);
+
+  writeFileSync('api.json', JSON.stringify(document), 'utf-8');
 
   await app.listen(${this.config.port});
 }
