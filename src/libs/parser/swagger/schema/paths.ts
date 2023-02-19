@@ -1,5 +1,5 @@
 import { ApiParser } from '..';
-import { capitalize } from '../../../../utils';
+import { unCapitalize } from '../../../../utils';
 
 export type ApiMethodType = 'get' | 'post' | 'put' | 'patch' | 'delete';
 export interface ApiMethodsOptions {
@@ -44,7 +44,9 @@ export class ApiPathsParser extends ApiParser<string> {
         }, {});
 
         let name = item.operationId;
-        name = capitalize((name as string).replace(/(crud|controller)/gim, ''));
+        name = unCapitalize(
+          (name as string).replace(/(crud|controller)/gim, ''),
+        );
 
         methods[$method][path] = {
           params,
