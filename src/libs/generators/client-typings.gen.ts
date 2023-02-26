@@ -1,5 +1,4 @@
 import { Model } from './../../interfaces/index';
-import { existsSync, mkdirSync } from 'fs';
 import { Generator } from '.';
 import { generateEnums } from '../../utils/enum';
 import { generateInterfaces } from '../../utils/interface';
