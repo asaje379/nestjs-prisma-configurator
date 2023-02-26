@@ -50,11 +50,15 @@ export class Installer {
       (dependency: string) => !PackageDotJsonGenerator.isDependency(dependency),
     );
 
-    console.log('Installing dependencies: ', filteredDependencies.join(', '));
+    if (filteredDependencies.length > 0) {
+      console.log('Installing dependencies: ', filteredDependencies.join(', '));
 
-    execSync(
-      `${pm} ${pmCmd[Installer.pm as PM]} ${Installer.dependencies.join(' ')}`,
-    );
+      execSync(
+        `${pm} ${pmCmd[Installer.pm as PM]} ${Installer.dependencies.join(
+          ' ',
+        )}`,
+      );
+    }
   }
 
   static run(script: string) {
