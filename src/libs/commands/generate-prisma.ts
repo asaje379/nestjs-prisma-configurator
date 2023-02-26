@@ -18,7 +18,10 @@ export class GeneratePrismaCommand implements BaseCommand {
     target = undefined,
   }: InitGeneratePrismaArgs): void {
     if (init) {
-      if (existsSync(Globals.PRISMA_FULL_PATH)) {
+      if (
+        existsSync(Globals.PRISMA_FULL_PATH) ||
+        existsSync(Globals.PRISMA_FOLDER_PATH)
+      ) {
         rmSync(Globals.PRISMA_FOLDER_PATH, { recursive: true, force: true });
       }
 
