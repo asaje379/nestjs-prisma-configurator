@@ -1,12 +1,12 @@
-import { capitalize } from '.';
+import { capitalize, kebabToCamel } from '.';
 import { Model, Types } from '../interfaces';
 import { JsTypesMapping } from '../libs/variables';
 import { getType } from './interface';
 
 export function generateEntity(name: string, value: Record<string, Model>) {
-  const capitalName = capitalize(name);
+  const capitalizedName = capitalize(kebabToCamel(name));
   const imports = [];
-  const lines = [`export class ${capitalName} extends BaseEntity {`];
+  const lines = [`export class ${capitalizedName} extends BaseEntity {`];
 
   for (const attr in value) {
     const type = value[attr].type as Types;
