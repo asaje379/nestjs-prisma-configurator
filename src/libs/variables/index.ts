@@ -6,7 +6,7 @@ export const TypesMapping = {
   [Types.FLOAT]: 'Float',
   [Types.REF]: undefined,
   [Types.ENUM]: undefined,
-  [Types.DATE]: 'Date',
+  [Types.DATE]: 'DateTime',
 };
 
 export const JsTypesMapping = {

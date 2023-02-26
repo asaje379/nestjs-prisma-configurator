@@ -64,6 +64,8 @@ models:
     author:
       type: ref
       model: Author
+    at:
+      type: date
 
   author:
     id:

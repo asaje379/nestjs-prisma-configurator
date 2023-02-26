@@ -1,10 +1,10 @@
 # nesty
 
-## Description
+## **Description**
 
 A tool for easily configure NestJS/Prisma project based on yml file
 
-## Installation
+## **Installation**
 
 ```bash
 npm i -D @asaje/nesty
@@ -16,13 +16,15 @@ or
 yarn add -D @asaje/nesty
 ```
 
-## How it works
+## **Features**
 
-### Create a NestJS project
+## **How it works**
+
+### **Create a NestJS project**
 
 The first step is to create an empty NestJS project. You can follow the installation guide [here](https://docs.nestjs.com/first-steps).
 
-### Create the config file
+### **Create the config file**
 
 A this stage, create a **config.yml** file at the root of your project. You can call your config file whatever you want.
 
@@ -111,6 +113,8 @@ models:
     name:
       type: string
 ```
+
+## **In depth on the creation of the configuration file**
 
 #### **env**
 

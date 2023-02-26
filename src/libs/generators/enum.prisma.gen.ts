@@ -1,4 +1,5 @@
 import { Generator } from '.';
+import { capitalize, kebabToCamel } from '../../utils/index';
 
 export class EnumPrismaGenerator extends Generator {
   enums: Record<string, string[]>;
@@ -24,7 +25,7 @@ export class EnumPrismaGenerator extends Generator {
 }
 
 export function generateSchemaEnum(name: string, values: string[]) {
-  const lines = [`enum ${name} {`];
+  const lines = [`enum ${capitalize(kebabToCamel(name))} {`];
   for (const value of values) {
     lines.push(` ${value.toUpperCase()}`);
   }

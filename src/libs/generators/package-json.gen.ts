@@ -6,6 +6,8 @@ import { createFile } from '../../utils';
 
 export interface PackageDotJson {
   scripts: Record<string, string>;
+  dependencies: Record<string, string>;
+  devDependencies: Record<string, string>;
 }
 
 export class PackageDotJsonGenerator extends Generator {
@@ -25,5 +27,10 @@ export class PackageDotJsonGenerator extends Generator {
       encoding: 'utf-8',
     });
     return JSON.parse(content) as PackageDotJson;
+  }
+
+  static isDependency(name: string) {
+    const packageDotJson = PackageDotJsonGenerator.read();
+    return name in packageDotJson.dependencies;
   }
 }

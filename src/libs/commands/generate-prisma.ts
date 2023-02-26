@@ -1,6 +1,6 @@
 import { InitArgs } from './init';
 import { Globals } from '../variables/globals';
-import { appendFileSync } from 'fs';
+import { appendFileSync, existsSync, rmSync } from 'fs';
 import { EnumPrismaGenerator } from '../generators/enum.prisma.gen';
 import { ModelPrismaGenerator } from '../generators/model.prisma.gen';
 import { execSync } from 'child_process';
@@ -18,6 +18,10 @@ export class GeneratePrismaCommand implements BaseCommand {
     target = undefined,
   }: InitGeneratePrismaArgs): void {
     if (init) {
+      if (existsSync(Globals.PRISMA_FULL_PATH)) {
+        rmSync(Globals.PRISMA_FOLDER_PATH, { recursive: true, force: true });
+      }
+
       execSync(`npx prisma init`);
     }
 

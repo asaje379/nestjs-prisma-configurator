@@ -1,5 +1,6 @@
 import { existsSync } from 'fs';
 import { execSync } from 'child_process';
+import { PackageDotJsonGenerator } from '../generators/package-json.gen';
 
 type PM = 'yarn' | 'npm' | 'pnpm';
 
@@ -44,7 +45,13 @@ export class Installer {
     const pm = Installer.getPackageManager();
     Installer.pm = pm;
     console.log("Package manager detected, let's use", pm);
-    console.log('Installing dependencies...');
+
+    const filteredDependencies = Installer.dependencies.filter(
+      (dependency: string) => !PackageDotJsonGenerator.isDependency(dependency),
+    );
+
+    console.log('Installing dependencies: ', filteredDependencies.join(', '));
+
     execSync(
       `${pm} ${pmCmd[Installer.pm as PM]} ${Installer.dependencies.join(' ')}`,
     );
