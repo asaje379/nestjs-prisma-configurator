@@ -1,6 +1,6 @@
 {
   "name": "@asaje/nesty",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "dist/main.js",
   "license": "MIT",
   "devDependencies": {
