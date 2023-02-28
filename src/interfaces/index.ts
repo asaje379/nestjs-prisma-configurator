@@ -6,12 +6,14 @@ export enum Attrs {
   ID = 'id',
   MODEL = 'model',
   ENUM = 'enum',
+  JSON = 'json',
   VALIDATIONS = 'validations',
 }
 
 export enum Formats {
   INCREMENT = 'increment',
   UUID = 'uuid',
+  CUID = 'cuid',
 }
 
 export enum Types {
@@ -22,6 +24,7 @@ export enum Types {
   REF = 'ref',
   ENUM = 'enum',
   DATE = 'date',
+  JSON = 'json',
 }
 
 export interface Model {
@@ -32,5 +35,6 @@ export interface Model {
   [Attrs.ID]?: Formats;
   [Attrs.MODEL]?: string;
   [Attrs.ENUM]?: string;
+  [Attrs.JSON]?: any;
   [Attrs.VALIDATIONS]?: Record<string, string | number | boolean>;
 }

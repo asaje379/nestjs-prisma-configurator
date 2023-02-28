@@ -103,22 +103,6 @@ export class ${upperName}CrudController {
     );
   }
 
-  @Delete(':id')
-  @UseInterceptors(ClassSerializerInterceptor)
-  @ApiNotFoundResponse(ApiResponseSchema.get(HttpStatus.NOT_FOUND))
-  async remove(@Param('id') id: string) {
-    await this.${modelName}Service.archive(Helpers.numberOrString(id));
-    return { statusCode: HttpStatus.OK };
-  }
-
-  @Delete(':id/force')
-  @UseInterceptors(ClassSerializerInterceptor)
-  @ApiNotFoundResponse(ApiResponseSchema.get(HttpStatus.NOT_FOUND))
-  async removeForce(@Param('id') id: string) {
-    await this.${modelName}Service.remove(Helpers.numberOrString(id));
-    return { statusCode: HttpStatus.OK };
-  }
-
   @Delete('many')
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiBody({ type: Array })
@@ -138,6 +122,22 @@ export class ${upperName}CrudController {
     await this.${modelName}Service.removeMany(
       ids.map((id) => Helpers.numberOrString(id)),
     );
+    return { statusCode: HttpStatus.OK };
+  }
+
+  @Delete(':id')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiNotFoundResponse(ApiResponseSchema.get(HttpStatus.NOT_FOUND))
+  async remove(@Param('id') id: string) {
+    await this.${modelName}Service.archive(Helpers.numberOrString(id));
+    return { statusCode: HttpStatus.OK };
+  }
+
+  @Delete(':id/force')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiNotFoundResponse(ApiResponseSchema.get(HttpStatus.NOT_FOUND))
+  async removeForce(@Param('id') id: string) {
+    await this.${modelName}Service.remove(Helpers.numberOrString(id));
     return { statusCode: HttpStatus.OK };
   }
 }

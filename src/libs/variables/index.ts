@@ -7,6 +7,7 @@ export const TypesMapping = {
   [Types.REF]: undefined,
   [Types.ENUM]: undefined,
   [Types.DATE]: 'DateTime',
+  [Types.JSON]: 'Json',
 };
 
 export const JsTypesMapping = {
@@ -17,9 +18,11 @@ export const JsTypesMapping = {
   [Types.ENUM]: undefined,
   [Types.DATE]: 'Date',
   [Types.REF]: undefined,
+  [Types.JSON]: 'any',
 };
 
 export const IdMapping: Record<Formats, string> = {
   [Formats.INCREMENT]: 'autoincrement()',
   [Formats.UUID]: 'uuid()',
+  [Formats.CUID]: 'cuid()',
 };

@@ -52,6 +52,7 @@ export class CrudService<CreateDto, UpdateDto, QueryType> {
     const query = paginate(args, {
       search: this.search,
       equals: this.equals,
+      includes: this.includes,
     });
     const items = await this.prisma[this.model].findMany(query);
     return items.map((item) => new this.defaultSerializer(item));
