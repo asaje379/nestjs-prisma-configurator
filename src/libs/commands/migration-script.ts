@@ -8,6 +8,7 @@ export class MigrationScriptCommand implements BaseCommand {
 
     scripts['migrate'] = 'prisma migrate dev';
     scripts['migrate:prod'] = 'prisma migrate prod';
+    scripts.dev = scripts['start:dev'];
 
     new PackageDotJsonGenerator({ ...packageDotJson, scripts }).generate();
   }

@@ -1,6 +1,6 @@
 import { InitArgs } from './init';
 import { Globals } from '../variables/globals';
-import { appendFileSync, existsSync, rmdirSync, rmSync } from 'fs';
+import { appendFileSync, existsSync, rmSync, mkdirSync, cpSync } from 'fs';
 import { EnumPrismaGenerator } from '../generators/enum.prisma.gen';
 import { ModelPrismaGenerator } from '../generators/model.prisma.gen';
 import { execSync } from 'child_process';
@@ -18,15 +18,7 @@ export class GeneratePrismaCommand implements BaseCommand {
     target = undefined,
   }: InitGeneratePrismaArgs): void {
     if (init) {
-      if (
-        existsSync(Globals.PRISMA_FULL_PATH) ||
-        existsSync(Globals.PRISMA_FOLDER_PATH)
-      ) {
-        rmSync(Globals.PRISMA_FOLDER_PATH, { recursive: true, force: true });
-        rmdirSync(Globals.PRISMA_FOLDER_PATH);
-      }
-
-      execSync(`npx prisma init`);
+      this.handleInit();
     }
 
     if (!target) {
@@ -49,6 +41,32 @@ export class GeneratePrismaCommand implements BaseCommand {
       this.generate(new EnumPrismaGenerator(enums).generateForTarget(target));
       return;
     }
+  }
+
+  private handleInit() {
+    if (!existsSync(Globals.PRISMA_FOLDER_PATH)) {
+      execSync(`npx prisma init`);
+    }
+
+    console.log(Globals.PRISMA_MIG_PATH);
+    if (existsSync(Globals.PRISMA_MIG_PATH)) {
+      mkdirSync(Globals.PRISMA_MIG_TMP_PATH);
+
+      cpSync(Globals.PRISMA_MIG_PATH, Globals.PRISMA_MIG_TMP_PATH, {
+        recursive: true,
+        force: true,
+      });
+    }
+
+    rmSync(Globals.PRISMA_FOLDER_PATH, { recursive: true, force: true });
+
+    execSync(`npx prisma init`);
+
+    cpSync(Globals.PRISMA_MIG_TMP_PATH, Globals.PRISMA_MIG_PATH, {
+      recursive: true,
+      force: true,
+    });
+    rmSync(Globals.PRISMA_MIG_TMP_PATH, { recursive: true, force: true });
   }
 
   generate(schema: string) {

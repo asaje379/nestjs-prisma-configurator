@@ -16,17 +16,94 @@ or
 yarn add -D @asaje/nesty
 ```
 
-## **Features**
+## **Getting started**
 
-## **How it works**
+```bash
+# Step 1: Create a new nestjs project
+nest g new my-project
 
-### **Create a NestJS project**
+cd my-project
+```
 
-The first step is to create an empty NestJS project. You can follow the installation guide [here](https://docs.nestjs.com/first-steps).
+You can follow the nestjs first steps guide [here](https://docs.nestjs.com/first-steps).
 
-### **Create the config file**
+```bash
+# Step 2: Install nesty as dependency
+npm i -D @asaje/nesty
+```
 
-A this stage, create a **config.yml** file at the root of your project. You can call your config file whatever you want.
+```bash
+# Step 3: create your config.yml file
+touch config.yml
+
+# Write your configs
+```
+
+```bash
+# Step 4: Use nesty to initialise your project
+npx nesty config.yml init
+```
+
+## **Features (available commands)**
+
+**init**  
+Initialize a new empty project
+
+```bash
+# Eg:
+npx nesty config.yml init
+```
+
+**update**  
+Use this command when your project is already configured and you want to make some updates
+
+```bash
+# Eg:
+npx nesty config.yml update
+```
+
+**gen:prisma**  
+Use this command to only generate the prisma configs
+
+```bash
+# Eg:
+npx nesty config.yml gen:prisma
+```
+
+**gen:target**  
+Use this command to only generate the config of a specific model or enum
+
+```bash
+# Eg:
+npx nesty config.yml gen:target my-target
+```
+
+**gen:db**  
+Use this command to only generate the database configs
+
+```bash
+# Eg:
+npx nesty config.yml gen:db
+```
+
+**gen:env**  
+Use this command to only generate the env configs
+
+```bash
+# Eg:
+npx nesty config.yml gen:env
+```
+
+**gen:sdk**
+
+Each time your project is built (the development server is started for example), a file named **api.json** is generated at the root of your project, this file is used to generate the equivalent sdk of your project.
+
+```bash
+# Eg:
+npx nesty api.json gen:sdk
+```
+
+## **Write your config file**
 
 You can define in your configuration file five (5) configuration groups.
 
@@ -114,8 +191,6 @@ models:
       type: string
 ```
 
-## **In depth on the creation of the configuration file**
-
 #### **env**
 
 This is where you can specify all your env variables for your different environments.
@@ -154,7 +229,7 @@ _NB_: If you want to process **.env** without a specific environment suffix, you
 
 As for the **env** part, you can define database configurations for each of your working environments. The defaut environment is named **default**.
 
-The availabale configurations are :
+The available configurations are :
 
 - **user**: database username, default set to _postgres_
 - **pass**: database password, default set to _root_

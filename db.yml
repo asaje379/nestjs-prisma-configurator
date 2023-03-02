@@ -63,11 +63,11 @@ models:
         isEnum: TodoStatus
     author:
       type: ref
-      model: Author
+      model: AuthorTodo
     at:
       type: date
 
-  author:
+  author-todo:
     id:
       type: string
       id: uuid

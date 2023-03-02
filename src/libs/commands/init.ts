@@ -28,51 +28,51 @@ export interface InitArgs {
 export class InitCommand implements BaseCommand {
   execute(args: InitArgs): void {
     // Install dependencies
-    Installer.installDependencies();
+    // Installer.installDependencies();
 
     // Init prisma
     console.log('Prisma configuration...');
     new GeneratePrismaCommand().execute(args);
 
-    // Init database configs
-    console.log('Initialising database configs');
-    new DatabaseInitCommand().execute(args);
+    // // Init database configs
+    // console.log('Initialising database configs');
+    // new DatabaseInitCommand().execute(args);
 
-    // Init envs
-    console.log('Initialising env variables...');
-    new EnvInitCommand().execute(args);
+    // // Init envs
+    // console.log('Initialising env variables...');
+    // new EnvInitCommand().execute(args);
 
-    // Generate main.ts file
-    console.log('Generating main.ts file');
-    new MainDotTsInitCommand().execute(args);
+    // // Generate main.ts file
+    // console.log('Generating main.ts file');
+    // new MainDotTsInitCommand().execute(args);
 
-    // Update package.json file
-    console.log('Updating package.json file');
-    new MigrationScriptCommand().execute();
+    // // Update package.json file
+    // console.log('Updating package.json file');
+    // new MigrationScriptCommand().execute();
 
-    // Generate prisma module
-    console.log('Generating prisma module ...');
-    new PrismaResGenerator().generate();
+    // // Generate prisma module
+    // console.log('Generating prisma module ...');
+    // new PrismaResGenerator().generate();
 
-    console.log('Generating crud module ...');
-    new CrudResGenerator().generate();
+    // console.log('Generating crud module ...');
+    // new CrudResGenerator().generate();
 
-    // Generate websocket module
-    console.log('Generating websocket module ...');
-    new WebsocketCommand().execute();
+    // // Generate websocket module
+    // console.log('Generating websocket module ...');
+    // new WebsocketCommand().execute();
 
-    // Generate helpers
-    console.log('Generating helpers ...');
-    new HelpersCommand().execute();
+    // // Generate helpers
+    // console.log('Generating helpers ...');
+    // new HelpersCommand().execute();
 
-    // Generate base
-    console.log('Generating base files ...');
-    new BaseInitCommand().execute();
+    // // Generate base
+    // console.log('Generating base files ...');
+    // new BaseInitCommand().execute();
 
-    for (const name in args.models) {
-      console.log(`Generating ${name} module ...`);
-      new GenericResGenerator({ name, model: args.models[name] }).generate();
-    }
+    // for (const name in args.models) {
+    //   console.log(`Generating ${name} module ...`);
+    //   new GenericResGenerator({ name, model: args.models[name] }).generate();
+    // }
     console.log('Done with success. Enjoy !');
   }
 }

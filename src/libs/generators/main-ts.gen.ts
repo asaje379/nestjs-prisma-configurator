@@ -43,7 +43,7 @@ async function bootstrap() {
   app.enableCors();
 
   ${
-    this.config.prefix
+    this.config?.prefix
       ? 'app.setGlobalPrefix(' + JSON.stringify(this.config.prefix) + ');'
       : ''
   }
@@ -73,7 +73,7 @@ async function bootstrap() {
 
   writeFileSync('api.json', JSON.stringify(document), 'utf-8');
 
-  await app.listen(${this.config.port});
+  await app.listen(${this.config?.port ?? 3000});
 }
 bootstrap();
 `;

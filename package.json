@@ -13,31 +13,22 @@
   "scripts": {
     "build": "tsc && esbuild --bundle src/main.ts --outdir=dist --minify --platform=node --packages=external",
     "dev-api": "ts-node-dev --respawn --transpile-only src/main.ts api.json gen:sdk",
-    "dev": "ts-node-dev --respawn --transpile-only src/main.ts db.yml init",
     "migrate": "prisma migrate dev",
     "migrate:prod": "prisma migrate prod"
   },
   "dependencies": {
     "@nestjs/cli": "^9.2.0",
     "@prisma-fmt/cli": "^1.1.1",
+    "@prisma/client": "4.10.1",
     "prettier": "^2.8.4",
     "prisma": "^4.10.1",
     "yaml": "^2.2.1"
   },
-  "files": [
-    "./dist"
-  ],
-  "bin": {
-    "nesty": "./dist/main.js"
-  },
+  "files": ["./dist"],
+  "bin": { "nesty": "./dist/main.js" },
   "repository": {
     "type": "git",
     "url": "https://github.com/asaje379/nestjs-prisma-configurator.git"
   },
-  "keywords": [
-    "nest",
-    "nestjs",
-    "prisma",
-    "nestjs prisma"
-  ]
+  "keywords": ["nest", "nestjs", "prisma", "nestjs prisma"]
 }

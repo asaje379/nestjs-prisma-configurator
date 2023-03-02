@@ -29,6 +29,8 @@ export class DatabaseInitCommand implements BaseCommand {
         currentData['DATABASE_URL'] = dabaseEnvUrl;
         createFile(path, envParser.unparse(currentData));
       }
+
+      console.log('Updated with success. Enjoy !');
     }
   }
 }

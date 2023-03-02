@@ -1,6 +1,8 @@
 export class Globals {
   static PRISMA_SCHEMA_NAME = 'schema.prisma';
   static PRISMA_FULL_PATH = 'prisma/schema.prisma';
+  static PRISMA_MIG_PATH = 'prisma/migrations';
+  static PRISMA_MIG_TMP_PATH = '.migrations';
   static PRISMA_FOLDER_PATH = 'prisma';
   static CLIENT_TYPES_FOLDER_NAME = 'client-typings';
   static PACKAGE_DOT_JSON = 'package.json';

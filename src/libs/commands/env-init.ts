@@ -26,6 +26,8 @@ export class EnvInitCommand implements BaseCommand {
           }),
         );
       }
+
+      console.log('Updated with success. Enjoy !');
     }
   }
 }
