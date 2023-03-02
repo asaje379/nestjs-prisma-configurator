@@ -313,8 +313,8 @@ models:
 
 Available **attributes** are :
 
-| Attribute   | Possible values                            |     |
-| ----------- | ------------------------------------------ | --- |
+| Attribute   | Possible values                            |
+| ----------- | ------------------------------------------ |
 | id          | increment, uuid, cuid                      |
 | type        | string, int, float, bool, ref, enum, date  |
 | unique      | true, false                                |
