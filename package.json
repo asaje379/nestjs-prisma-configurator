@@ -1,6 +1,6 @@
 {
   "name": "@asaje/nesty",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "main": "dist/main.js",
   "license": "MIT",
   "devDependencies": {
@@ -24,11 +24,20 @@
     "prisma": "^4.10.1",
     "yaml": "^2.2.1"
   },
-  "files": ["./dist"],
-  "bin": { "nesty": "./dist/main.js" },
+  "files": [
+    "./dist"
+  ],
+  "bin": {
+    "nesty": "./dist/main.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/asaje379/nestjs-prisma-configurator.git"
   },
-  "keywords": ["nest", "nestjs", "prisma", "nestjs prisma"]
+  "keywords": [
+    "nest",
+    "nestjs",
+    "prisma",
+    "nestjs prisma"
+  ]
 }
