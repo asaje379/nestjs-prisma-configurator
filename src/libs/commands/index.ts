@@ -1,9 +1,10 @@
+import { UpdateCommand } from './update';
 import { OpenApiCommand } from './openapi';
 import { EnvInitCommand } from './env-init';
 import { DatabaseInitCommand } from './db-init';
-import { ClientTypingsCommand } from './client-typings';
 import { GeneratePrismaCommand } from './generate-prisma';
 import { InitCommand, InitArgs } from './init';
+import { TargetCommand } from './target';
 
 export interface BaseCommand {
   execute(args: InitArgs): void;
@@ -12,20 +13,19 @@ export interface BaseCommand {
 export const CommanderList: Record<string, any> = {
   init: (args: InitArgs) => new InitCommand().execute(args),
 
+  update: (args: InitArgs) => new UpdateCommand().execute(args),
+
   'gen:prisma': (args: InitArgs) =>
     new GeneratePrismaCommand().execute({ ...args, init: true }),
 
-  'gen:prisma:target': (args: InitArgs) =>
-    new GeneratePrismaCommand().execute({ ...args, init: false }),
-
-  'gen:client-typings': (args: InitArgs) =>
-    new ClientTypingsCommand().execute(args),
+  'gen:target': (args: InitArgs) =>
+    new TargetCommand().execute({ ...args, init: false }),
 
   'gen:db': (args: InitArgs) => new DatabaseInitCommand().execute(args),
 
   'gen:env': (args: InitArgs) => new EnvInitCommand().execute(args),
 
-  'gen:openapi': (args: string) => new OpenApiCommand().execute(args),
+  'gen:sdk': (args: string) => new OpenApiCommand().execute(args),
 };
 
 export class Commander {

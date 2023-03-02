@@ -124,7 +124,7 @@ static async ${data.name}(options: RequestOptions<${data.body}>) {
 
   generateApi(methods: ApiMethods, types: string[]) {
     return `
-import {${types.join(',')}} from './components'
+import {${types.join(',')}} from './typings'
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
 export type ApiRequestType = 'get' | 'post' | 'put' | 'delete' | 'patch';

@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "tsc && esbuild --bundle src/main.ts --outdir=dist --minify --platform=node --packages=external",
-    "dev-api": "ts-node-dev --respawn --transpile-only src/main.ts api.json gen:openapi",
+    "dev-api": "ts-node-dev --respawn --transpile-only src/main.ts api.json gen:sdk",
     "dev": "ts-node-dev --respawn --transpile-only src/main.ts db.yml init",
     "migrate": "prisma migrate dev",
     "migrate:prod": "prisma migrate prod"
