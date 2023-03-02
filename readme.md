@@ -44,6 +44,12 @@ touch config.yml
 npx nesty config.yml init
 ```
 
+```bash
+# Step 5: Execute migrations and start your dev server
+npm run migrate
+npm run dev
+```
+
 ## **Features (available commands)**
 
 **init**  
@@ -236,3 +242,19 @@ The available configurations are :
 - **port**: database port, default set to _5432_
 - **name**: database name, default set to _test_
 - **host**: database host, default set to _localhost_
+
+#### **server**
+
+The available configurations are:
+
+- **port**: the server port
+- **prefix**: the global api prefix, defautl set to _api_
+- **doc**: swagger and redocs configs
+
+The available configurations for **doc** are:
+
+- **title**: the documentation page title
+- **description**: the documentation page description
+- **version**: the API version
+- **path**: the base paths for the documentation page. **path.swagger** defines the swagger path and **path.redocs** the redocs path
+- **auth**: the redocs page credentials. **auth.user** defines the username and **auth.pass** the password
