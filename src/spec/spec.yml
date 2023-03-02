@@ -10,13 +10,13 @@ types:
 id:
   - increment
   - uuid
+  - cuid
 
 attrs:
   - type
   - unique
   - required
   - default
-  - ref
   - enum
   - id
   - model

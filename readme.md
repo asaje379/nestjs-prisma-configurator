@@ -205,12 +205,12 @@ The syntax is:
 ```yml
 # config.yml
 env:
-    _env_name_1_:
+    env_name_1:
         key1: value1
         ...
         keyn: valueN
     ...
-    _env_name_N_:
+    env_name_N:
         key1: value1
         ...
         keyn: valueN
@@ -258,3 +258,102 @@ The available configurations for **doc** are:
 - **version**: the API version
 - **path**: the base paths for the documentation page. **path.swagger** defines the swagger path and **path.redocs** the redocs path
 - **auth**: the redocs page credentials. **auth.user** defines the username and **auth.pass** the password
+
+#### **enums**
+
+This is where you can specify all you enums.
+
+The syntax is:
+
+```yml
+# config.yml
+enums:
+    enum_name_1:
+      - value1
+      - ...
+      - valueN
+    ...
+    enum_name_N:
+      - value1
+      - ...
+      - valueN
+```
+
+#### **models**
+
+This is where you can specify all you models.
+
+The syntax is:
+
+```yml
+# config.yml
+models:
+    model_name_1:
+      column_name_1:
+        attr_1: value1
+        ...
+        attr_N: valueN
+      ...
+      column_name_N:
+        attr_1: value1
+        ...
+        attr_N: valueN
+    ...
+    model_name_N:
+      column_name_1:
+        attr_1: value1
+        ...
+        attr_N: valueN
+      ...
+      column_name_N:
+        attr_1: value1
+        ...
+        attr_N: valueN
+```
+
+Available **attributes** are :
+
+| Attribute   | Possible values                            |     |
+| ----------- | ------------------------------------------ | --- |
+| id          | increment, uuid, cuid                      |
+| type        | string, int, float, bool, ref, enum, date  |
+| unique      | true, false                                |
+| required    | true, false                                |
+| default     | _the default value_                        |
+| enum        | _the referenced enum_                      |
+| model       | _the referenced model_                     |
+| validations | _one of available validations_             |
+
+The available **validations** are:
+
+- min
+- max
+- minLength
+- maxLength
+- isInt
+- isDate
+- isEmail
+- isString
+- contains
+- isEmpty
+- isNotEmpty
+- isDefined
+- isOptional
+- equals
+- notEquals
+- isIn
+- isNotIn
+- isBoolean
+- isNumber
+- isArray
+- isEnum
+- isPositive
+- isNegative
+- minDate
+- maxDate
+- isBooleanString
+- isDateString
+- notContains
+- isAplha
+- isAlphanumeric
+- isDecimal
